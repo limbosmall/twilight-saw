@@ -1,8 +1,8 @@
 extends Node2D
 
-var things = [["res://sprites/Log1.png", Vector2(40, 120), "Log", 50],
- ["res://sprites/Log2.png", Vector2(40, 77), "Log", 30], ["res://sprites/Log3.png", Vector2(40, 57), "Log", 10],
-["res://sprites/Trash1.png", Vector2(40, 48), "Trash", 0], ["res://sprites/Trash2.png", Vector2(40, 100), "Trash", 0]]
+var things = [["res://sprites/Log1.png", Vector2(40, 120), "Log","Log1" , 50],
+ ["res://sprites/Log2.png", Vector2(40, 77), "Log", "Log2" , 30], ["res://sprites/Log3.png", Vector2(40, 57), "Log", "Log3" , 10],
+["res://sprites/Trash1.png", Vector2(40, 48), "Trash", "Trash1" , 0], ["res://sprites/Trash2.png", Vector2(40, 100), "Trash", "Trash2" , 0]]
 
 var occupied_paths = [0, 0]
 var path
@@ -11,7 +11,7 @@ var rand = RandomNumberGenerator.new()
 class create_log:
 	extends CharacterBody2D
 	
-	func _init(sprite_texture: Texture, collision_size: Vector2, group: String, hp: int):
+	func _init(sprite_texture: Texture, collision_size: Vector2, group: String, stack_group: String , hp: int):
 		#set sprite
 		var sprite = Sprite2D.new()
 		sprite.texture = sprite_texture
@@ -31,8 +31,9 @@ class create_log:
 		set("local_hp", hp)
 		#add to group
 		add_to_group(group)
+		add_to_group(stack_group)
 
-func _process(delta):
+func _process(_delta):
 	$Label.text = "Score: %s" % gb.global_score
 
 func _ready():
@@ -51,7 +52,7 @@ func change_path():
 func _on_timer_timeout():
 	var thing = rand.randi_range(0, 4)
 	path = rand.randi_range(9, 13)
-	var body = create_log.new(load(things[thing][0]), things[thing][1], things[thing][2], things[thing][3])
+	var body = create_log.new(load(things[thing][0]), things[thing][1], things[thing][2], things[thing][3], things[thing][4])
 	add_child(body)
 	if path in occupied_paths:
 		change_path()

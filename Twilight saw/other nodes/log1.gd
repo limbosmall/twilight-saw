@@ -3,6 +3,8 @@ extends CharacterBody2D
 var localsprite
 var localself
 var local_hp = 0
+var multiplier = 1
+var max_stack = 4
 
 var destroying = false
 var clicked = false
@@ -27,7 +29,7 @@ func Sawed():
 	if local_hp <= 0:
 		set_collision_layer(0)
 		set_collision_mask(0)
-		gb.global_score += 100 * int(localself.is_in_group("Log")) -100 * int(localself.is_in_group("Trash"))
+		gb.global_score += multiplier * (100 * int(localself.is_in_group("Log")) -100 * int(localself.is_in_group("Trash")))
 		var tween = self.create_tween()
 		tween.tween_property(localsprite, "modulate", Color(1,1,1,0), 0.5 * (gb.game_speed ** -1))
 		await tween.finished
