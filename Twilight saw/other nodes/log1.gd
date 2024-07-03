@@ -3,6 +3,7 @@ extends CharacterBody2D
 var localsprite
 var localself
 var local_hp = 0
+var scoreadd = 100
 var multiplier = 1
 var max_stack = 4
 
@@ -18,8 +19,8 @@ func Sawed():
 	if clicked == false:
 		clicked = true
 		var tween_blink1 = self.create_tween()
-		tween_blink1.parallel().tween_property(localsprite, "modulate", Color8(1, 1, 1), 0.2)
-		tween_blink1.parallel().tween_property(localsprite, "scale", Vector2(1.2, 1.2), 0.2)
+		tween_blink1.parallel().tween_property(localsprite, "modulate", Color8(1, 1, 1), 0.2 * (gb.game_speed ** -1))
+		tween_blink1.parallel().tween_property(localsprite, "scale", Vector2(1.2, 1.2), 0.2 * (gb.game_speed ** -1))
 		await tween_blink1.finished
 		var tween_blink2 = self.create_tween()
 		tween_blink2.parallel().tween_property(localsprite, "modulate", Color(1,1,1,1), 0.2)
@@ -29,7 +30,7 @@ func Sawed():
 	if local_hp <= 0:
 		set_collision_layer(0)
 		set_collision_mask(0)
-		gb.global_score += multiplier * (100 * int(localself.is_in_group("Log")) -100 * int(localself.is_in_group("Trash")))
+		gb.global_score += multiplier * (scoreadd * int(localself.is_in_group("Log")) -scoreadd * int(localself.is_in_group("Trash")))
 		var tween = self.create_tween()
 		tween.tween_property(localsprite, "modulate", Color(1,1,1,0), 0.5 * (gb.game_speed ** -1))
 		await tween.finished

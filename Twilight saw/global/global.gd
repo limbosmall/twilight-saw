@@ -3,6 +3,9 @@ extends Node
 var global_score: int = 0
 var game_speed = 1
 var saw_lvl = 1
+var tiles_cant_spawn = []
+
+var tilemap: TileMap #Лучше ничего не придумал
 #var base_speed = 1.0
 #var acceleration_factor = 0.05
 #var score_threshold = 10000.0
