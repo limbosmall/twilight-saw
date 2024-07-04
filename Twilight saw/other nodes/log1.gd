@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 var localsprite
 var localself
+var collision_size
 var local_hp = 0
 var scoreadd = 100
 var multiplier = 1

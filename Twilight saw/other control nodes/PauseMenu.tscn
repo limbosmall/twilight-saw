@@ -1,0 +1,147 @@
+[gd_scene load_steps=10 format=3 uid="uid://bsmtowonlfpa7"]
+
+[ext_resource type="Shader" path="res://other control nodes/PauseMenu.gdshader" id="1_d4gtf"]
+[ext_resource type="Script" path="res://other control nodes/PauseMenu.gd" id="1_i552n"]
+[ext_resource type="Texture2D" uid="uid://oud0ccx83g5s" path="res://sprites/PauseIdle.png" id="1_yr612"]
+[ext_resource type="Texture2D" uid="uid://xw4j43dxtglm" path="res://sprites/PausePressed.png" id="2_rwylo"]
+[ext_resource type="Texture2D" uid="uid://tlhv1tsc84w4" path="res://sprites/PauseHover.png" id="3_bnxes"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6pf7x"]
+shader = ExtResource("1_d4gtf")
+shader_parameter/lod = 0.0
+
+[sub_resource type="Animation" id="Animation_t4ce5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:material:shader_parameter/lod")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_riw0y"]
+resource_name = "blur"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:material:shader_parameter/lod")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.728]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_snao8"]
+_data = {
+"RESET": SubResource("Animation_t4ce5"),
+"blur": SubResource("Animation_riw0y")
+}
+
+[node name="PauseMenu" type="Control" groups=["PauseMenu"]]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i552n")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+process_mode = 1
+layout_mode = 0
+offset_left = 1047.0
+offset_right = 1147.0
+offset_bottom = 100.0
+texture_normal = ExtResource("1_yr612")
+texture_pressed = ExtResource("2_rwylo")
+texture_hover = ExtResource("3_bnxes")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6pf7x")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_snao8")
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_left = 301.0
+offset_right = 804.0
+offset_bottom = 648.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Resume"
+
+[node name="Settings" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Settings"
+
+[node name="Main Menu" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Main menu"
+
+[node name="Save_and_quit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Save and quit"
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Save_and_quit" to="." method="_on_save_and_quit_pressed"]

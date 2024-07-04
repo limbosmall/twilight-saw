@@ -1,19 +1,20 @@
 extends Node2D
 
-var things = [["res://sprites/Log1.png", Vector2(40, 120), "Log","Log1", 50, 120, 5],
-["res://sprites/Log2.png", Vector2(40, 77), "Log", "Log2" , 30, 70, 3],
-["res://sprites/Log3.png", Vector2(40, 57), "Log", "Log3" , 10, 50, 3],
-["res://sprites/Trash1.png", Vector2(40, 48), "Trash", "Trash1" , 0, 50, 0],
-["res://sprites/Trash2.png", Vector2(40, 100), "Trash", "Trash2" , 0, 100, 0]]
+var things = [["res://sprites/Log1.png", Vector2(40, 120), "Savable", "Log","Log1", 50, 120, 5],
+["res://sprites/Log2.png", Vector2(40, 77), "Savable", "Log", "Log2" , 30, 70, 3],
+["res://sprites/Log3.png", Vector2(40, 57), "Savable", "Log", "Log3" , 10, 50, 3],
+["res://sprites/Trash1.png", Vector2(40, 48), "Savable", "Trash", "Trash1" , 0, 50, 0],
+["res://sprites/Trash2.png", Vector2(40, 100), "Savable", "Trash", "Trash2" , 0, 100, 0]]
 
 var occupied_paths = [0, 0]
 var path
+var game_data
 
 var rand = RandomNumberGenerator.new()
 class create_log:
 	extends CharacterBody2D
 	
-	func _init(sprite_texture: Texture, collision_size: Vector2, group: String, stack_group: String , hp: int, scoreadd: int, max_stack: int):
+	func _init(sprite_texture: Texture, collision_size: Vector2, saving_group: String, group: String, stack_group: String , hp: int, scoreadd: int, max_stack: int):
 		#set sprite
 		var sprite = Sprite2D.new()
 		sprite.texture = sprite_texture
@@ -28,6 +29,7 @@ class create_log:
 		#set script + change script vars
 		var script = load("res://other nodes/log1.gd")
 		set_script(script)
+		set("collision_size", collision_size)
 		set("localsprite", sprite)
 		set("localself", self)
 		set("local_hp", hp)
@@ -36,11 +38,28 @@ class create_log:
 		#add to group
 		add_to_group(group)
 		add_to_group(stack_group)
+		add_to_group(saving_group)
+
+func loader():
+	var file = FileAccess.open("user://TwilightSawSaveFile.json", FileAccess.READ)
+	var content = file.get_var()
+	file = null
+	print(content)
+	gb.global_score = content["score"]
+	gb.saw_lvl = content["saw level"]
+	gb.tiles_cant_spawn = content["tiles cant spawn"]
+	if len(content["things"]) != 0:
+		for thing in content["things"]:
+			var body = create_log.new(load(thing["sprite_texture"]), thing["collision_size"], thing["saving_group"], thing["group"], thing["stack_group"], thing["hp"], thing["scoreadd"], thing["max_stack"])
+			add_child(body)
+			body.global_position = thing["pos"]
 
 func _process(_delta):
 	$Label.text = "Score: %s" % gb.global_score
 
 func _ready():
+	if gb.must_load_data:
+		loader()
 	gb.tilemap = $TileMap
 	time_add()
 	rand.randomize()
@@ -61,7 +80,7 @@ func _on_timer_timeout():
 	if len(gb.tiles_cant_spawn) < 4:
 		var thing = rand.randi_range(0, 4)
 		path = rand.randi_range(9, 13)
-		var body = create_log.new(load(things[thing][0]), things[thing][1], things[thing][2], things[thing][3], things[thing][4], things[thing][5], things[thing][6])
+		var body = create_log.new(load(things[thing][0]), things[thing][1], things[thing][2], things[thing][3], things[thing][4], things[thing][5], things[thing][6], things[thing][7])
 		add_child(body)
 		if path in occupied_paths or Vector2i(path, -2) in gb.tiles_cant_spawn:
 			change_path()

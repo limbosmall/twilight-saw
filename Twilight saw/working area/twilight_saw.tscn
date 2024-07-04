@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1olirxba6d4j"]
+[gd_scene load_steps=5 format=3 uid="uid://d1olirxba6d4j"]
 
 [ext_resource type="Script" path="res://working area/twilight_saw.gd" id="1_tmfvh"]
 [ext_resource type="PackedScene" uid="uid://ds1qxpuvs5bep" path="res://other nodes/TileMap.tscn" id="1_w887x"]
 [ext_resource type="PackedScene" uid="uid://blbx2rqyur7sm" path="res://other nodes/mouse_checker.tscn" id="3_42bkb"]
+[ext_resource type="PackedScene" uid="uid://bsmtowonlfpa7" path="res://other control nodes/PauseMenu.tscn" id="4_na4o2"]
 
 [node name="Twilight saw" type="Node2D"]
 script = ExtResource("1_tmfvh")
@@ -33,24 +34,7 @@ offset_bottom = 42.0
 theme_override_font_sizes/font_size = 30
 text = "Score: 0"
 
+[node name="PauseMenu" parent="." instance=ExtResource("4_na4o2")]
+z_index = 2
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="body_entered" from="TileMap/@Area2D@26185" to="TileMap/@Area2D@26185" method="_on_body_entered"]
-[connection signal="body_exited" from="TileMap/@Area2D@26185" to="TileMap/@Area2D@26185" method="_on_body_exited"]
-[connection signal="body_entered" from="TileMap/@Area2D@26186" to="TileMap/@Area2D@26186" method="_on_body_entered"]
-[connection signal="body_exited" from="TileMap/@Area2D@26186" to="TileMap/@Area2D@26186" method="_on_body_exited"]
-[connection signal="body_entered" from="TileMap/@Area2D@26187" to="TileMap/@Area2D@26187" method="_on_body_entered"]
-[connection signal="body_exited" from="TileMap/@Area2D@26187" to="TileMap/@Area2D@26187" method="_on_body_exited"]
-[connection signal="body_entered" from="TileMap/@Area2D@26188" to="TileMap/@Area2D@26188" method="_on_body_entered"]
-[connection signal="body_exited" from="TileMap/@Area2D@26188" to="TileMap/@Area2D@26188" method="_on_body_exited"]
-[connection signal="body_entered" from="TileMap/@Area2D@26189" to="TileMap/@Area2D@26189" method="_on_body_entered"]
-[connection signal="body_exited" from="TileMap/@Area2D@26189" to="TileMap/@Area2D@26189" method="_on_body_exited"]
-[connection signal="body_entered" from="TileMap/Spawn_checker" to="TileMap/Spawn_checker" method="_on_body_entered"]
-[connection signal="body_exited" from="TileMap/Spawn_checker" to="TileMap/Spawn_checker" method="_on_body_exited"]
-[connection signal="body_entered" from="TileMap/@Area2D@26807" to="TileMap/@Area2D@26807" method="_on_body_entered"]
-[connection signal="body_exited" from="TileMap/@Area2D@26807" to="TileMap/@Area2D@26807" method="_on_body_exited"]
-[connection signal="body_entered" from="TileMap/@Area2D@26808" to="TileMap/@Area2D@26808" method="_on_body_entered"]
-[connection signal="body_exited" from="TileMap/@Area2D@26808" to="TileMap/@Area2D@26808" method="_on_body_exited"]
-[connection signal="body_entered" from="TileMap/@Area2D@26809" to="TileMap/@Area2D@26809" method="_on_body_entered"]
-[connection signal="body_exited" from="TileMap/@Area2D@26809" to="TileMap/@Area2D@26809" method="_on_body_exited"]
-[connection signal="body_entered" from="TileMap/@Area2D@26810" to="TileMap/@Area2D@26810" method="_on_body_entered"]
-[connection signal="body_exited" from="TileMap/@Area2D@26810" to="TileMap/@Area2D@26810" method="_on_body_exited"]

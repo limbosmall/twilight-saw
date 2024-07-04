@@ -1,19 +1,16 @@
 extends Node
 
-var global_score: int = 0
-var game_speed = 1
-var saw_lvl = 1
-var tiles_cant_spawn = []
+var global_score: int = 0 #Используется в twilight_saw.gd
+var game_speed = 1 #Пока ненужная хуйня
 
-var tilemap: TileMap #Лучше ничего не придумал
-#var base_speed = 1.0
-#var acceleration_factor = 0.05
-#var score_threshold = 10000.0
-#var score_exponent = 0.5
-#var score_ratio = max(0, (global_score - score_threshold) / score_threshold)
-#var speed_increase = acceleration_factor * pow(score_ratio, score_exponent)
-	
+var has_saved_data = false #Используется в Load_btn на StartingScreen
+var must_load_data = false #Используется в Load_btn на StartingScreen
 
-func _input(event):
-	if event.is_action_pressed("ui_cancel"):
-		get_tree().quit()
+var saw_lvl = 1 #Пока ненужная хуйня
+
+var tiles_cant_spawn = [] #Используется в twilight_saw.gd и spawn_checker.gd
+var tilemap: TileMap #Лучше ничего не придумал #Используется в spawn_checker.gd
+
+func _ready():
+	if FileAccess.file_exists("user://TwilightSawSaveFile.json"):
+		has_saved_data = true
