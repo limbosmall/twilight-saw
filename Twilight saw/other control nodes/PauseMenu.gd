@@ -19,12 +19,15 @@ func quiter(mode: String):
 func save_data():
 	var game_data = {
 		"score": gb.global_score,
-		"saw level": gb.saw_lvl,
+		"big saw damage": gb.big_saw_dmg,
+		"twilight saw damage": gb.twilight_saw_dmg,
 		"tiles cant spawn": gb.tiles_cant_spawn,
 		"things": []
 	}
 	if len(get_tree().get_nodes_in_group("Savable")) != 0:
 		for thing in get_tree().get_nodes_in_group("Savable"):
+			if thing.destroying:
+				continue
 			game_data["things"].append({
 				"sprite_texture": thing.localsprite.texture.resource_path,
 				"collision_size": thing.collision_size,
@@ -53,7 +56,9 @@ func _on_resume_pressed():
 		get_tree().paused = false
 
 func _on_main_menu_pressed():
-	quiter("MainMenu")
+	if paused:
+		quiter("MainMenu")
 
 func _on_save_and_quit_pressed():
-	quiter("Save and quit")
+	if paused:
+		quiter("Save and quit")

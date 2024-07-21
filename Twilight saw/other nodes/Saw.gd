@@ -14,4 +14,4 @@ func _on_body_exited(body):
 func Clicked():
 	$AnimatedSprite2D.play("default")
 	for thing in things:
-		thing.Sawed()
+		thing.Sawed(gb.big_saw_dmg)

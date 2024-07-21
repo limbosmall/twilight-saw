@@ -1,8 +1,8 @@
 extends Node2D
 
-var things = [["res://sprites/Log1.png", Vector2(40, 120), "Savable", "Log","Log1", 50, 120, 5],
-["res://sprites/Log2.png", Vector2(40, 77), "Savable", "Log", "Log2" , 30, 70, 3],
-["res://sprites/Log3.png", Vector2(40, 57), "Savable", "Log", "Log3" , 10, 50, 3],
+var things = [["res://sprites/ДУБ.png", Vector2(40, 50), "Savable", "Log","Log1", 50, 120, 5],
+["res://sprites/БЕРЕЗА.png", Vector2(40, 50), "Savable", "Log", "Log2" , 30, 70, 3],
+["res://sprites/сосева.png", Vector2(40, 50), "Savable", "Log", "Log3" , 10, 50, 3],
 ["res://sprites/Trash1.png", Vector2(40, 48), "Savable", "Trash", "Trash1" , 0, 50, 0],
 ["res://sprites/Trash2.png", Vector2(40, 100), "Savable", "Trash", "Trash2" , 0, 100, 0]]
 
@@ -44,9 +44,9 @@ func loader():
 	var file = FileAccess.open("user://TwilightSawSaveFile.json", FileAccess.READ)
 	var content = file.get_var()
 	file = null
-	print(content)
 	gb.global_score = content["score"]
-	gb.saw_lvl = content["saw level"]
+	gb.big_saw_dmg = content["big saw damage"]
+	gb.twilight_saw_dmg = content["twilight saw damage"]
 	gb.tiles_cant_spawn = content["tiles cant spawn"]
 	if len(content["things"]) != 0:
 		for thing in content["things"]:

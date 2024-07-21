@@ -15,8 +15,8 @@ func _process(_delta):
 	if not destroying:
 		move_and_collide(Vector2(0, 1) * gb.game_speed)
 
-func Sawed():
-	local_hp -= 10 * gb.saw_lvl
+func Sawed(dmg):
+	local_hp -= dmg
 	if clicked == false:
 		clicked = true
 		var tween_blink1 = self.create_tween()

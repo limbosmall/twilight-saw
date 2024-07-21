@@ -6,7 +6,10 @@ var game_speed = 1 #Пока ненужная хуйня
 var has_saved_data = false #Используется в Load_btn на StartingScreen
 var must_load_data = false #Используется в Load_btn на StartingScreen
 
-var saw_lvl = 1 #Пока ненужная хуйня
+var ABphline_radius = 200
+var ABmax_points = 5
+var big_saw_dmg = 10 #Пока ненужная хуйня
+var twilight_saw_dmg = 50
 
 var tiles_cant_spawn = [] #Используется в twilight_saw.gd и spawn_checker.gd
 var tilemap: TileMap #Лучше ничего не придумал #Используется в spawn_checker.gd
