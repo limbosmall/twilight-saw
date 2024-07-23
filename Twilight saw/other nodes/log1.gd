@@ -17,7 +17,7 @@ func _process(_delta):
 
 func Sawed(dmg):
 	local_hp -= dmg
-	if clicked == false:
+	if clicked == false and not destroying:
 		clicked = true
 		var tween_blink1 = self.create_tween()
 		tween_blink1.parallel().tween_property(localsprite, "modulate", Color8(1, 1, 1), 0.2 * (gb.game_speed ** -1))
@@ -28,7 +28,7 @@ func Sawed(dmg):
 		tween_blink2.parallel().tween_property(localsprite, "scale", Vector2(1, 1), 0.2)
 		await tween_blink2.finished
 		clicked = false
-	if local_hp <= 0:
+	if local_hp <= 0 and not destroying:
 		set_collision_layer(0)
 		set_collision_mask(0)
 		gb.global_score += multiplier * (scoreadd * int(localself.is_in_group("Log")) -scoreadd * int(localself.is_in_group("Trash")))
@@ -38,16 +38,17 @@ func Sawed(dmg):
 		self.queue_free()
 
 func Destroy():
-	destroying = true
-	set_collision_layer(0)
-	set_collision_mask(0)
-	var tween_move = self.create_tween()
-	if tween_move.is_running():
-		gb.global_score += 100
-		tween_move.tween_property(localself, "position", Vector2(375, 371), 0.5 * (gb.game_speed ** -1))
-		await tween_move.finished
-		var tween_destroy = self.create_tween()
-		tween_destroy.parallel().tween_property(localsprite, "modulate", Color(1,1,1,0), 0.5 * (gb.game_speed ** -1))
-		tween_destroy.parallel().tween_property(localself, "scale", Vector2(0.001, 0.001), 0.5 * (gb.game_speed ** -1))
-		await tween_destroy.finished
-		self.queue_free()
+	if local_hp > 0:
+		destroying = true
+		set_collision_layer(0)
+		set_collision_mask(0)
+		var tween_move = self.create_tween()
+		if tween_move.is_running():
+			gb.global_score += 100
+			tween_move.tween_property(localself, "position", Vector2(375, 371), 0.5 * (gb.game_speed ** -1))
+			await tween_move.finished
+			var tween_destroy = self.create_tween()
+			tween_destroy.parallel().tween_property(localsprite, "modulate", Color(1,1,1,0), 0.5 * (gb.game_speed ** -1))
+			tween_destroy.parallel().tween_property(localself, "scale", Vector2(0.001, 0.001), 0.5 * (gb.game_speed ** -1))
+			await tween_destroy.finished
+			self.queue_free()

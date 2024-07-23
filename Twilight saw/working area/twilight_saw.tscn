@@ -38,3 +38,15 @@ text = "Score: 0"
 z_index = 2
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="TileMap/Area2D" to="TileMap/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="TileMap/Area2D" to="TileMap/Area2D" method="_on_body_exited"]
+[connection signal="body_entered" from="TileMap/Spawn_checker" to="TileMap/Spawn_checker" method="_on_body_entered"]
+[connection signal="body_exited" from="TileMap/Spawn_checker" to="TileMap/Spawn_checker" method="_on_body_exited"]
+[connection signal="body_entered" from="TileMap/@Area2D@23892" to="TileMap/@Area2D@23892" method="_on_body_entered"]
+[connection signal="body_exited" from="TileMap/@Area2D@23892" to="TileMap/@Area2D@23892" method="_on_body_exited"]
+[connection signal="body_entered" from="TileMap/@Area2D@23893" to="TileMap/@Area2D@23893" method="_on_body_entered"]
+[connection signal="body_exited" from="TileMap/@Area2D@23893" to="TileMap/@Area2D@23893" method="_on_body_exited"]
+[connection signal="body_entered" from="TileMap/@Area2D@23894" to="TileMap/@Area2D@23894" method="_on_body_entered"]
+[connection signal="body_exited" from="TileMap/@Area2D@23894" to="TileMap/@Area2D@23894" method="_on_body_exited"]
+[connection signal="body_entered" from="TileMap/@Area2D@23895" to="TileMap/@Area2D@23895" method="_on_body_entered"]
+[connection signal="body_exited" from="TileMap/@Area2D@23895" to="TileMap/@Area2D@23895" method="_on_body_exited"]

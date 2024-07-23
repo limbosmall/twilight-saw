@@ -55,12 +55,20 @@ class PhantomLine:
 		if get_parent().get_node("MouseChecker").pointcount > gb.ABmax_points:
 			#Код для спавна пилы, идущей по пути с точками connectline, и уничтожения точек с connectline, но мне лень писать его :Р
 			var saw_scene = preload("res://other nodes/twilight_saw_rot.tscn").instantiate()
+			var path = Path2D.new()
+			var pfollow = PathFollow2D.new()
+			pfollow.loop = false
+			pfollow.set_script(preload("res://other nodes/TwilightSaw_PathFollow.gd"))
+			pfollow.add_child(saw_scene)
+			var curve = Curve2D.new()
 			for point in connectline.points:
-				saw_scene.points.append(point)
+				curve.add_point(point)
+			path.set_curve(curve)
+			path.add_child(pfollow)
 			for child in pts:
 				child.queue_free()
 			connectline.queue_free()
-			get_parent().add_child(saw_scene)
+			get_parent().add_child(path)
 			get_parent().get_node("MouseChecker").phline = null
 			get_parent().get_node("MouseChecker").pointcount = 1
 			get_parent().get_node("MouseChecker").ABpointing = false
@@ -106,6 +114,16 @@ func _input(event):
 				elif len(saws) != 0 and !ABpointing:
 					for body in saws:
 						body.Clicked()
+		if event.button_index == MOUSE_BUTTON_RIGHT:
+			if event.is_released():
+				if ABpointing:
+					for pt in phline.pts:
+						pt.queue_free()
+					phline.connectline.queue_free()
+					phline.queue_free()
+					phline = null
+					pointcount = 1
+					ABpointing = false
 
 func ABPointer():
 	if is_instance_valid(phline):

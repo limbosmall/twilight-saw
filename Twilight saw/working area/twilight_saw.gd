@@ -3,8 +3,8 @@ extends Node2D
 var things = [["res://sprites/ДУБ.png", Vector2(40, 50), "Savable", "Log","Log1", 50, 120, 5],
 ["res://sprites/БЕРЕЗА.png", Vector2(40, 50), "Savable", "Log", "Log2" , 30, 70, 3],
 ["res://sprites/сосева.png", Vector2(40, 50), "Savable", "Log", "Log3" , 10, 50, 3],
-["res://sprites/Trash1.png", Vector2(40, 48), "Savable", "Trash", "Trash1" , 0, 50, 0],
-["res://sprites/Trash2.png", Vector2(40, 100), "Savable", "Trash", "Trash2" , 0, 100, 0]]
+["res://sprites/Trash1.png", Vector2(40, 48), "Savable", "Trash", "Trash1" , 10, 50, 0],
+["res://sprites/Trash2.png", Vector2(40, 100), "Savable", "Trash", "Trash2" , 10, 100, 0]]
 
 var occupied_paths = [0, 0]
 var path
@@ -70,14 +70,15 @@ func time_add():
 	time_add()
 
 func change_path():
+	var attempts = 0
 	while path in occupied_paths or Vector2i(path, -2) in gb.tiles_cant_spawn:
 		path = rand.randi_range(9, 13)
-		if len(gb.tiles_cant_spawn) == 4:
-			path = gb.tiles_cant_spawn[-1][0]
+		attempts += 1
+		if attempts > 10:
 			break
 
 func _on_timer_timeout():
-	if len(gb.tiles_cant_spawn) < 4:
+	if len(gb.tiles_cant_spawn) < 5:
 		var thing = rand.randi_range(0, 4)
 		path = rand.randi_range(9, 13)
 		var body = create_log.new(load(things[thing][0]), things[thing][1], things[thing][2], things[thing][3], things[thing][4], things[thing][5], things[thing][6], things[thing][7])
