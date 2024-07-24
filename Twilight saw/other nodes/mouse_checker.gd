@@ -4,7 +4,12 @@ var trash = []
 var saws = []
 var logs = []
 var ABpointing = false
+var Drawing = false
+var can_drawing = false
 var pointcount = 1
+var pixels_left = 2000
+var last_position: Vector2
+var line: Line2D
 var cusor_pick
 var phline
 
@@ -28,6 +33,7 @@ class PhantomLine:
 	var endpt
 	var pts = []
 	var connectline = Line2D.new()
+	var done = false
 	
 	func _init(StartingPoint: Vector2):
 		stpt = StartingPoint
@@ -48,11 +54,16 @@ class PhantomLine:
 			endpt = stpt + direction * gb.ABphline_radius
 		self.points = [stpt, endpt]
 	
+	func _input(event):
+		if event.is_action_pressed("ui_accept"):
+			done = true
+			Clicked()
+	
 	func Clicked():
 		CreatePoint(endpt)
 		connectline.add_point(endpt)
 		stpt = endpt
-		if get_parent().get_node("MouseChecker").pointcount > gb.ABmax_points:
+		if get_parent().get_node("MouseChecker").pointcount > gb.ABmax_points or done:
 			#Код для спавна пилы, идущей по пути с точками connectline, и уничтожения точек с connectline, но мне лень писать его :Р
 			var saw_scene = preload("res://other nodes/twilight_saw_rot.tscn").instantiate()
 			var path = Path2D.new()
@@ -83,22 +94,47 @@ class PhantomLine:
 		get_parent().get_node("MouseChecker").pointcount += 1
 
 func _process(_delta):
-	self.global_position = get_global_mouse_position()
+	var current_pos = get_global_mouse_position()
+	self.global_position = current_pos
+	if can_drawing and current_pos.distance_to(last_position) >= 10:
+		line = Line2D.new()
+		line.default_color = Color(1,1,1,0.5)
+		line.width = 8
+		get_parent().add_child(line)
+		line.add_point(last_position)
+		can_drawing = false
+		Drawing = true
+	if Drawing:
+		if current_pos != last_position:
+			var distance = current_pos.distance_to(last_position)
+			pixels_left -= distance
+			if pixels_left <= 0:
+				DrawPathSaw()
+			else:
+				line.add_point(current_pos)
+				last_position = current_pos
 
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
-				if len(logs) != 0 and !ABpointing:
+				if !Drawing and len(logs) == 0 and len(saws) == 0 and len(trash) == 0 and !is_instance_valid(cusor_pick) and !ABpointing:
+					can_drawing = true
+					last_position = event.position
+				if len(logs) != 0 and !ABpointing and !Drawing:
 					cusor_pick = CursorLog.new(logs[0])
 					cusor_pick.z_index = 1
 					add_child(cusor_pick)
 			else:
-				if len(logs) == 0 and len(saws) == 0 and len(trash) == 0 and !is_instance_valid(cusor_pick) and !ABpointing:
+				if can_drawing and get_global_mouse_position().distance_to(last_position) <= 10:
+					can_drawing = false
+				if !Drawing and len(logs) == 0 and len(saws) == 0 and len(trash) == 0 and !is_instance_valid(cusor_pick) and !ABpointing:
 					ABpointing = true
+				if Drawing:
+					DrawPathSaw()
 				if ABpointing:
 					ABPointer()
-				if is_instance_valid(cusor_pick):
+				elif is_instance_valid(cusor_pick):
 					if cusor_pick.can_stack:
 						cusor_pick.original_log.queue_free()
 						cusor_pick.multiply_to_log.multiplier += cusor_pick.original_log.multiplier
@@ -107,11 +143,11 @@ func _input(event):
 					else:
 						cusor_pick.queue_free()
 						cusor_pick = null
-				elif len(trash) != 0 and !ABpointing:
+				elif len(trash) != 0 and !Drawing and !ABpointing:
 					for body in trash:
 						if not body.destroying:
 							body.Destroy()
-				elif len(saws) != 0 and !ABpointing:
+				elif len(saws) != 0 and !Drawing and !ABpointing:
 					for body in saws:
 						body.Clicked()
 		if event.button_index == MOUSE_BUTTON_RIGHT:
@@ -124,6 +160,23 @@ func _input(event):
 					phline = null
 					pointcount = 1
 					ABpointing = false
+
+func DrawPathSaw():
+	Drawing = false
+	pixels_left = 2000
+	var saw_scene = preload("res://other nodes/twilight_saw_rot.tscn").instantiate()
+	var curve = Curve2D.new()
+	for pt in line.points:
+		curve.add_point(pt)
+	var path = Path2D.new()
+	path.set_curve(curve)
+	var pfollow = PathFollow2D.new()
+	pfollow.loop = false
+	pfollow.set_script(preload("res://other nodes/TwilightSaw_PathFollow.gd"))
+	pfollow.add_child(saw_scene)
+	path.add_child(pfollow)
+	get_parent().add_child(path)
+	line.queue_free()
 
 func ABPointer():
 	if is_instance_valid(phline):
