@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cff0c52jaojuw"]
+
+[ext_resource type="Script" path="res://other control nodes/goto_btn.gd" id="1_88aqt"]
+
+[node name="GotoBtn" type="Button"]
+text = "Button"
+script = ExtResource("1_88aqt")
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

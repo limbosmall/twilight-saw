@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgjpouh1715h7"]
+
+[ext_resource type="Script" path="res://other control nodes/Buy_btn.gd" id="1_ochce"]
+
+[node name="BuyBtn" type="Button"]
+text = "Buy"
+script = ExtResource("1_ochce")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

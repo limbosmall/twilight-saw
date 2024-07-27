@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlhh64w58q3nw"]
+
+[ext_resource type="Script" path="res://other nodes/Saw.gd" id="1_msp67"]
+[ext_resource type="Texture2D" uid="uid://d3tn0u8ee0jer" path="res://sprites/пила нов.png" id="2_cfhk0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1qgwl"]
+size = Vector2(50, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d0trn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cfhk0")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qrvvm"]
+size = Vector2(50, 20)
+
+[node name="Area2D" type="Area2D" groups=["Saw"]]
+scale = Vector2(5, 4)
+collision_layer = 255
+collision_mask = 255
+script = ExtResource("1_msp67")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_1qgwl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_d0trn")
+frame_progress = 1.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, -1.75)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_qrvvm")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
