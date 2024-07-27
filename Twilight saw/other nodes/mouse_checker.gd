@@ -6,6 +6,7 @@ var logs = []
 var ABpointing = false
 var Drawing = false
 var can_drawing = false
+var canseled = false
 var pointcount = 1
 var pixels_left = 2000
 var last_position: Vector2
@@ -128,11 +129,11 @@ func _input(event):
 			else:
 				if can_drawing and get_global_mouse_position().distance_to(last_position) <= 10:
 					can_drawing = false
-				if !Drawing and len(logs) == 0 and len(saws) == 0 and len(trash) == 0 and !is_instance_valid(cusor_pick) and !ABpointing:
+				if !Drawing and len(logs) == 0 and len(saws) == 0 and len(trash) == 0 and !is_instance_valid(cusor_pick) and !ABpointing and !canseled:
 					ABpointing = true
 				if Drawing:
 					DrawPathSaw()
-				if ABpointing:
+				if ABpointing and !canseled:
 					ABPointer()
 				elif is_instance_valid(cusor_pick):
 					if cusor_pick.can_stack:
@@ -152,6 +153,14 @@ func _input(event):
 						body.Clicked()
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			if event.is_released():
+				if Drawing:
+					line.queue_free()
+					Drawing = false
+					can_drawing = false
+					pixels_left = 2000
+					canseled = true
+					await get_tree().create_timer(0.5).timeout
+					canseled = false
 				if ABpointing:
 					for pt in phline.pts:
 						pt.queue_free()
@@ -177,6 +186,9 @@ func DrawPathSaw():
 	path.add_child(pfollow)
 	get_parent().add_child(path)
 	line.queue_free()
+	canseled = true
+	await get_tree().create_timer(0.5).timeout
+	canseled = false
 
 func ABPointer():
 	if is_instance_valid(phline):
