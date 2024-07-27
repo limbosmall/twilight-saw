@@ -1,20 +1,21 @@
 extends Control
 
 var paused = false
+@onready var shop_pos = $Shop.global_position
 
 func _input(event):
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("ui_cancel") and !gb.shopping:
 		if paused:
 			_on_resume_pressed()
 		else:
 			_on_texture_button_pressed()
-
-func quiter(mode: String):
-	save_data()
-	if mode == "MainMenu":
-		get_tree().change_scene_to_file("res://working area/StartingScreen.tscn")
-	else:
-		get_tree().quit()
+	elif event.is_action_pressed("e") and !paused:
+		if !gb.shopping:
+			gb.shopping = true
+		else:
+			gb.shopping = false
+		var tween = $Shop.create_tween()
+		tween.tween_property($Shop, "position", shop_pos + int(gb.shopping) * Vector2(0, 647), 0.5 * (gb.game_speed** -1)).set_ease(Tween.EASE_IN_OUT)
 
 func save_data():
 	var game_data = {
@@ -55,10 +56,7 @@ func _on_resume_pressed():
 		$AnimationPlayer.play_backwards("blur")
 		get_tree().paused = false
 
-func _on_main_menu_pressed():
-	if paused:
-		quiter("MainMenu")
-
 func _on_save_and_quit_pressed():
 	if paused:
-		quiter("Save and quit")
+		save_data()
+		get_tree().quit()

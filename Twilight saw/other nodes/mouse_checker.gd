@@ -8,7 +8,7 @@ var Drawing = false
 var can_drawing = false
 var canseled = false
 var pointcount = 1
-var pixels_left = 2000
+var pixels_left = gb.DrawSaw_max_pixels
 var last_position: Vector2
 var line: Line2D
 var cusor_pick
@@ -66,21 +66,22 @@ class PhantomLine:
 		stpt = endpt
 		if get_parent().get_node("MouseChecker").pointcount > gb.ABmax_points or done:
 			#Код для спавна пилы, идущей по пути с точками connectline, и уничтожения точек с connectline, но мне лень писать его :Р
-			var saw_scene = preload("res://other nodes/twilight_saw_rot.tscn").instantiate()
-			var path = Path2D.new()
-			var pfollow = PathFollow2D.new()
-			pfollow.loop = false
-			pfollow.set_script(preload("res://other nodes/TwilightSaw_PathFollow.gd"))
-			pfollow.add_child(saw_scene)
-			var curve = Curve2D.new()
-			for point in connectline.points:
-				curve.add_point(point)
-			path.set_curve(curve)
-			path.add_child(pfollow)
+			if connectline.points[0] != connectline.points[1]:
+				var saw_scene = preload("res://other nodes/twilight_saw_rot.tscn").instantiate()
+				var path = Path2D.new()
+				var pfollow = PathFollow2D.new()
+				pfollow.loop = false
+				pfollow.set_script(preload("res://other nodes/TwilightSaw_PathFollow.gd"))
+				pfollow.add_child(saw_scene)
+				var curve = Curve2D.new()
+				for point in connectline.points:
+					curve.add_point(point)
+				path.set_curve(curve)
+				path.add_child(pfollow)
+				get_parent().add_child(path)
 			for child in pts:
 				child.queue_free()
 			connectline.queue_free()
-			get_parent().add_child(path)
 			get_parent().get_node("MouseChecker").phline = null
 			get_parent().get_node("MouseChecker").pointcount = 1
 			get_parent().get_node("MouseChecker").ABpointing = false
@@ -119,7 +120,7 @@ func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
-				if !Drawing and len(logs) == 0 and len(saws) == 0 and len(trash) == 0 and !is_instance_valid(cusor_pick) and !ABpointing:
+				if !gb.shopping and gb.DrawSaw_unlocked and !Drawing and len(logs) == 0 and len(saws) == 0 and len(trash) == 0 and !is_instance_valid(cusor_pick) and !ABpointing:
 					can_drawing = true
 					last_position = event.position
 				if len(logs) != 0 and !ABpointing and !Drawing:
@@ -129,7 +130,7 @@ func _input(event):
 			else:
 				if can_drawing and get_global_mouse_position().distance_to(last_position) <= 10:
 					can_drawing = false
-				if !Drawing and len(logs) == 0 and len(saws) == 0 and len(trash) == 0 and !is_instance_valid(cusor_pick) and !ABpointing and !canseled:
+				if !gb.shopping and gb.ABsaw_unlocked and !Drawing and len(logs) == 0 and len(saws) == 0 and len(trash) == 0 and !is_instance_valid(cusor_pick) and !ABpointing and !canseled:
 					ABpointing = true
 				if Drawing:
 					DrawPathSaw()
@@ -157,7 +158,7 @@ func _input(event):
 					line.queue_free()
 					Drawing = false
 					can_drawing = false
-					pixels_left = 2000
+					pixels_left = gb.DrawSaw_max_pixels
 					canseled = true
 					await get_tree().create_timer(0.5).timeout
 					canseled = false
@@ -172,7 +173,7 @@ func _input(event):
 
 func DrawPathSaw():
 	Drawing = false
-	pixels_left = 2000
+	pixels_left = gb.DrawSaw_max_pixels
 	var saw_scene = preload("res://other nodes/twilight_saw_rot.tscn").instantiate()
 	var curve = Curve2D.new()
 	for pt in line.points:

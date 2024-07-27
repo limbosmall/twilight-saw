@@ -1,6 +1,6 @@
 extends Area2D
 
-func _process(delta):
+func _process(_delta):
 	$Sprite2D.rotation += 0.5
 
 func _on_body_entered(body):
