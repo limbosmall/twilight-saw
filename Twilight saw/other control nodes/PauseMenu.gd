@@ -15,12 +15,12 @@ func _input(event):
 		else:
 			gb.shopping = false
 		var tween = $Shop.create_tween()
-		tween.tween_property($Shop, "position", shop_pos + int(gb.shopping) * Vector2(0, 647), 0.5 * (gb.game_speed** -1)).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_property($Shop, "position", shop_pos + int(gb.shopping) * Vector2(0, 650), 0.5 * (gb.game_speed** -1)).set_ease(Tween.EASE_IN_OUT)
 
 func save_data():
 	var game_data = {
 		"score": gb.global_score,
-		"big saw damage": gb.big_saw_dmg,
+		"big saw damage": gb.BigSaw_dmg,
 		"twilight saw damage": gb.twilight_saw_dmg,
 		"tiles cant spawn": gb.tiles_cant_spawn,
 		"things": []

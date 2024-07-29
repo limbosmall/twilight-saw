@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bsmtowonlfpa7"]
+[gd_scene load_steps=17 format=3 uid="uid://bsmtowonlfpa7"]
 
 [ext_resource type="Script" path="res://other control nodes/PauseMenu.gd" id="1_i552n"]
 [ext_resource type="Texture2D" uid="uid://oud0ccx83g5s" path="res://sprites/PauseIdle.png" id="1_yr612"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://bjtvb3dnekod" path="res://sprites/ABRadius_Upgrade.png" id="9_42x0a"]
 [ext_resource type="Texture2D" uid="uid://dewwibwhvuuc7" path="res://sprites/DrawPixels_Upgrade.png" id="11_p3bel"]
 [ext_resource type="Texture2D" uid="uid://gwwcw2klbpm1" path="res://sprites/Починка.png" id="12_4pcf2"]
+[ext_resource type="Texture2D" uid="uid://4yv2qpd8u82x" path="res://sprites/BigSaw_AddTimer_Upgrade.png" id="12_ryc8r"]
+[ext_resource type="Texture2D" uid="uid://dvdgyso4r6n86" path="res://sprites/BigSaw_Timer_Upgrade.png" id="13_roki4"]
 
 [sub_resource type="Animation" id="Animation_t4ce5"]
 length = 0.001
@@ -108,12 +110,14 @@ text = "Save and quit"
 [node name="Shop" type="PanelContainer" parent="."]
 layout_mode = 0
 offset_left = 188.0
-offset_top = -647.0
-offset_right = 964.0
-offset_bottom = -1.0
+offset_top = -650.0
+offset_right = 971.0
+offset_bottom = -4.0
 
 [node name="Scroller" type="ScrollContainer" parent="Shop"]
 layout_mode = 2
+scroll_vertical = 202
+horizontal_scroll_mode = 0
 
 [node name="VScroller" type="VBoxContainer" parent="Shop/Scroller"]
 layout_mode = 2
@@ -150,7 +154,7 @@ horizontal_alignment = 1
 layout_mode = 2
 max_stack = 1
 cost = 5000
-floater = 1.0
+booler = true
 property = "ABsaw_unlocked"
 
 [node name="Gap" type="Control" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine"]
@@ -180,7 +184,7 @@ horizontal_alignment = 1
 [node name="BuyBtn" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine/ABPoint_Add" instance=ExtResource("7_6m5q8")]
 layout_mode = 2
 max_stack = 5
-number_to_add = 1
+number_to_add = 1.0
 cost = 2000
 property = "ABmax_points"
 
@@ -210,7 +214,7 @@ horizontal_alignment = 1
 [node name="BuyBtn" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine/ABRadius_Increase" instance=ExtResource("7_6m5q8")]
 layout_mode = 2
 max_stack = 4
-number_to_add = 20
+number_to_add = 20.0
 cost = 2500
 property = "ABphline_radius"
 
@@ -245,7 +249,7 @@ horizontal_alignment = 1
 layout_mode = 2
 max_stack = 1
 cost = 70000
-floater = 1.0
+booler = true
 property = "DrawSaw_unlocked"
 
 [node name="Gap" type="Control" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine"]
@@ -276,7 +280,7 @@ horizontal_alignment = 1
 [node name="BuyBtn" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine/Draw_Pixels" instance=ExtResource("7_6m5q8")]
 layout_mode = 2
 max_stack = 5
-number_to_add = 300
+number_to_add = 100.0
 cost = 6000
 property = "DrawSaw_max_pixels"
 
@@ -307,7 +311,102 @@ horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine/Repair_Saw"]
 layout_mode = 2
+disabled = true
 text = "Repair"
+
+[node name="ThirdMarg" type="MarginContainer" parent="Shop/Scroller/VScroller"]
+layout_mode = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+
+[node name="ThirdLine" type="HBoxContainer" parent="Shop/Scroller/VScroller/ThirdMarg"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+
+[node name="BigSaw_AddTimer" type="VBoxContainer" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine"]
+layout_mode = 2
+
+[node name="Sprite" type="TextureRect" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/BigSaw_AddTimer"]
+layout_mode = 2
+texture = ExtResource("12_ryc8r")
+stretch_mode = 2
+
+[node name="Upgrade_Name" type="Label" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/BigSaw_AddTimer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Saw automatzation"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/BigSaw_AddTimer"]
+layout_mode = 2
+text = "Cost:"
+horizontal_alignment = 1
+
+[node name="BuyBtn" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/BigSaw_AddTimer" instance=ExtResource("7_6m5q8")]
+layout_mode = 2
+max_stack = 1
+cost = 2000
+booler = true
+property = "BigSaw_timer_unlocked"
+
+[node name="Gap" type="Control" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine"]
+custom_minimum_size = Vector2(123.9, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.62
+
+[node name="BigSaw_IncreaseTimer" type="VBoxContainer" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine"]
+layout_mode = 2
+
+[node name="Sprite" type="TextureRect" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/BigSaw_IncreaseTimer"]
+layout_mode = 2
+texture = ExtResource("13_roki4")
+stretch_mode = 2
+
+[node name="Upgrade_Name" type="Label" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/BigSaw_IncreaseTimer"]
+layout_mode = 2
+text = "Upgrade timer"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/BigSaw_IncreaseTimer"]
+layout_mode = 2
+text = "Cost:"
+horizontal_alignment = 1
+
+[node name="BuyBtn" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/BigSaw_IncreaseTimer" instance=ExtResource("7_6m5q8")]
+layout_mode = 2
+max_stack = 4
+number_to_add = -0.501
+cost = 7500
+property = "BigSaw_timer_speed"
+
+[node name="Gap2" type="Control" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine"]
+custom_minimum_size = Vector2(123.9, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ABRadius_Increase" type="VBoxContainer" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine"]
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/ABRadius_Increase"]
+layout_mode = 2
+texture = ExtResource("9_42x0a")
+stretch_mode = 2
+
+[node name="Upgrade_Name" type="Label" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/ABRadius_Increase"]
+layout_mode = 2
+text = "Nul"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/ABRadius_Increase"]
+layout_mode = 2
+text = "Cost:"
+horizontal_alignment = 1
+
+[node name="BuyBtn" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/ABRadius_Increase" instance=ExtResource("7_6m5q8")]
+layout_mode = 2
+disabled = true
 
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]

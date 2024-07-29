@@ -5,6 +5,7 @@ var localself
 var collision_size
 var local_hp = 0
 var scoreadd = 100
+var xadder = 1
 var multiplier = 1
 var max_stack = 4
 
@@ -31,7 +32,7 @@ func Sawed(dmg):
 	if local_hp <= 0 and not destroying:
 		set_collision_layer(0)
 		set_collision_mask(0)
-		gb.global_score += multiplier * (scoreadd * int(localself.is_in_group("Log")) -scoreadd * int(localself.is_in_group("Trash")))
+		gb.global_score += xadder * multiplier * (scoreadd * int(localself.is_in_group("Log")) -scoreadd * int(localself.is_in_group("Trash")))
 		var tween = self.create_tween()
 		tween.tween_property(localsprite, "modulate", Color(1,1,1,0), 0.5 * (gb.game_speed ** -1))
 		await tween.finished

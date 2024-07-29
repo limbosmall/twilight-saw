@@ -123,7 +123,7 @@ func _input(event):
 				if !gb.shopping and gb.DrawSaw_unlocked and !Drawing and len(logs) == 0 and len(saws) == 0 and len(trash) == 0 and !is_instance_valid(cusor_pick) and !ABpointing:
 					can_drawing = true
 					last_position = event.position
-				if len(logs) != 0 and !ABpointing and !Drawing:
+				if len(logs) != 0 and !ABpointing and !Drawing and !gb.shopping:
 					cusor_pick = CursorLog.new(logs[0])
 					cusor_pick.z_index = 1
 					add_child(cusor_pick)
@@ -140,16 +140,17 @@ func _input(event):
 					if cusor_pick.can_stack:
 						cusor_pick.original_log.queue_free()
 						cusor_pick.multiply_to_log.multiplier += cusor_pick.original_log.multiplier
+						cusor_pick.multiply_to_log.xadder = 1.5
 						cusor_pick.queue_free()
 						cusor_pick = null
 					else:
 						cusor_pick.queue_free()
 						cusor_pick = null
-				elif len(trash) != 0 and !Drawing and !ABpointing:
+				elif len(trash) != 0 and !Drawing and !ABpointing and !gb.shopping:
 					for body in trash:
 						if not body.destroying:
 							body.Destroy()
-				elif len(saws) != 0 and !Drawing and !ABpointing:
+				elif len(saws) != 0 and !Drawing and !ABpointing and !gb.shopping:
 					for body in saws:
 						body.Clicked()
 		if event.button_index == MOUSE_BUTTON_RIGHT:

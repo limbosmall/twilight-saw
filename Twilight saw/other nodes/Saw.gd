@@ -14,4 +14,16 @@ func _on_body_exited(body):
 func Clicked():
 	$AnimatedSprite2D.play("default")
 	for thing in things:
-		thing.Sawed(gb.big_saw_dmg)
+		thing.Sawed(gb.BigSaw_dmg)
+
+func Timer_Restart(timer_time, mode):
+	if !$Timer.is_stopped():
+		$Timer.stop()
+	if mode == "true":
+		$Timer.start(timer_time)
+
+func _on_timer_timeout():
+	Clicked()
+
+func _ready():
+	gb.BigSaw_ChangeMod.connect(Timer_Restart)

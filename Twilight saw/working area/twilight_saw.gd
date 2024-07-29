@@ -45,7 +45,7 @@ func loader():
 	var content = file.get_var()
 	file = null
 	gb.global_score = content["score"]
-	gb.big_saw_dmg = content["big saw damage"]
+	gb.BigSaw_dmg_dmg = content["big saw damage"]
 	gb.twilight_saw_dmg = content["twilight saw damage"]
 	gb.tiles_cant_spawn = content["tiles cant spawn"]
 	if len(content["things"]) != 0:
