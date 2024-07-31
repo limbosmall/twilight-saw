@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmykotxiphs0f"]
+
+[ext_resource type="Texture2D" uid="uid://btqefhqc25tsu" path="res://sprites/BigSaw_Damage_Upgrade.png" id="1_2ek3r"]
+[ext_resource type="PackedScene" uid="uid://bgjpouh1715h7" path="res://other control nodes/Buy_btn.tscn" id="2_esbyv"]
+
+[node name="BigSaw_DamageUp" type="VBoxContainer"]
+
+[node name="Sprite" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_2ek3r")
+stretch_mode = 2
+
+[node name="Upgrade_Name" type="Label" parent="."]
+layout_mode = 2
+text = "Nul"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="."]
+layout_mode = 2
+text = "Cost:"
+horizontal_alignment = 1
+
+[node name="BuyBtn" parent="." instance=ExtResource("2_esbyv")]
+layout_mode = 2
+max_stack = 15
+number_to_add = 10.0
+cost = 2300
+property = "BigSaw_dmg"

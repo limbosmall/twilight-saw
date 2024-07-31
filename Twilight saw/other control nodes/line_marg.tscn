@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://3ibrqfpxcsby"]
+
+[node name="LineMarg" type="MarginContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+
+[node name="LineBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Gap" type="Control" parent="LineBox" groups=["Gap"]]
+custom_minimum_size = Vector2(123.9, 0)
+layout_mode = 2
+
+[node name="Gap2" type="Control" parent="LineBox" groups=["Gap"]]
+custom_minimum_size = Vector2(123.9, 0)
+layout_mode = 2

@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3jl1pw8nf0cf"]
+
+[ext_resource type="Texture2D" uid="uid://dvdgyso4r6n86" path="res://sprites/BigSaw_Timer_Upgrade.png" id="1_q15h1"]
+[ext_resource type="PackedScene" uid="uid://bgjpouh1715h7" path="res://other control nodes/Buy_btn.tscn" id="2_6bgll"]
+
+[node name="BigSaw_IncreaseTimer" type="VBoxContainer"]
+
+[node name="Sprite" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_q15h1")
+stretch_mode = 2
+
+[node name="Upgrade_Name" type="Label" parent="."]
+layout_mode = 2
+text = "Upgrade timer"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="."]
+layout_mode = 2
+text = "Cost:"
+horizontal_alignment = 1
+
+[node name="BuyBtn" parent="." instance=ExtResource("2_6bgll")]
+layout_mode = 2
+max_stack = 4
+number_to_add = -0.501
+cost = 7500
+property = "BigSaw_timer_speed"

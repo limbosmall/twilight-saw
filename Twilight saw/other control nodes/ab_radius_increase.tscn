@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://de3w5qba3vb7a"]
+
+[ext_resource type="Texture2D" uid="uid://bjtvb3dnekod" path="res://sprites/ABRadius_Upgrade.png" id="1_e5ufw"]
+[ext_resource type="PackedScene" uid="uid://bgjpouh1715h7" path="res://other control nodes/Buy_btn.tscn" id="2_177il"]
+
+[node name="ABRadius_Increase" type="VBoxContainer"]
+
+[node name="Sprite" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_e5ufw")
+stretch_mode = 2
+
+[node name="Upgrade_Name" type="Label" parent="."]
+layout_mode = 2
+text = "Increase Radius"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="."]
+layout_mode = 2
+text = "Cost:"
+horizontal_alignment = 1
+
+[node name="BuyBtn" parent="." instance=ExtResource("2_177il")]
+layout_mode = 2
+max_stack = 4
+number_to_add = 20.0
+cost = 2500
+property = "ABphline_radius"

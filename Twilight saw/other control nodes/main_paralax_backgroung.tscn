@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://5vs0xsq5x3up"]
+
+[ext_resource type="Script" path="res://other control nodes/main_paralax_backgroung.gd" id="1_f2m0y"]
+[ext_resource type="Texture2D" uid="uid://dg3l0uk2qm4h6" path="res://sprites/Main_ParalaxBackgroung1.png" id="1_j6uke"]
+[ext_resource type="Texture2D" uid="uid://drgcm161athdw" path="res://sprites/Main_ParalaxBackgroung2.png" id="2_v7ruc"]
+[ext_resource type="Texture2D" uid="uid://bbjas51q5c20h" path="res://sprites/Main_ParalaxBackgroung3.png" id="3_ycy4i"]
+[ext_resource type="Texture2D" uid="uid://dyawx5cxmbld5" path="res://sprites/Main_ParalaxBackgroung4.png" id="4_4agwr"]
+[ext_resource type="Texture2D" uid="uid://ce0ptaw1qvkmq" path="res://sprites/Main_ParalaxBackgroung5.png" id="5_sqh6y"]
+
+[node name="MainParalaxBackgroung" type="SubViewportContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_f2m0y")
+
+[node name="subview" type="SubViewport" parent="."]
+handle_input_locally = false
+size = Vector2i(1154, 648)
+render_target_update_mode = 4
+
+[node name="paralax" type="ParallaxBackground" parent="subview"]
+offset = Vector2(575, 324)
+scale = Vector2(2.225, 2.605)
+transform = Transform2D(2.225, 0, 0, 2.605, 575, 324)
+
+[node name="1" type="ParallaxLayer" parent="subview/paralax"]
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(520, 0)
+
+[node name="1" type="Sprite2D" parent="subview/paralax/1"]
+texture = ExtResource("1_j6uke")
+
+[node name="2" type="ParallaxLayer" parent="subview/paralax"]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(520, 0)
+
+[node name="2" type="Sprite2D" parent="subview/paralax/2"]
+texture = ExtResource("2_v7ruc")
+
+[node name="3" type="ParallaxLayer" parent="subview/paralax"]
+motion_scale = Vector2(0.4, 0.4)
+motion_mirroring = Vector2(520, 0)
+
+[node name="3" type="Sprite2D" parent="subview/paralax/3"]
+texture = ExtResource("3_ycy4i")
+
+[node name="4" type="ParallaxLayer" parent="subview/paralax"]
+motion_scale = Vector2(0.7, 0.7)
+motion_mirroring = Vector2(520, 0)
+
+[node name="4" type="Sprite2D" parent="subview/paralax/4"]
+texture = ExtResource("4_4agwr")
+
+[node name="5" type="ParallaxLayer" parent="subview/paralax"]
+motion_mirroring = Vector2(520, 0)
+
+[node name="5" type="Sprite2D" parent="subview/paralax/5"]
+texture = ExtResource("5_sqh6y")

@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs2grci07iptw"]
+
+[ext_resource type="Texture2D" uid="uid://c48ivb4gtrhiu" path="res://sprites/TwilightSaw_Damage_Upgrade.png" id="1_a1bxt"]
+[ext_resource type="PackedScene" uid="uid://bgjpouh1715h7" path="res://other control nodes/Buy_btn.tscn" id="2_n8smb"]
+
+[node name="TwilightSaw_DamageUp" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_a1bxt")
+stretch_mode = 2
+
+[node name="Upgrade_Name" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Twilight Saw Damage"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="."]
+layout_mode = 2
+text = "Cost:"
+horizontal_alignment = 1
+
+[node name="BuyBtn" parent="." instance=ExtResource("2_n8smb")]
+layout_mode = 2
+max_stack = 7
+number_to_add = 20.0
+cost = 12000
+multi_upgrade = true
+property = "twilight_saw_dmg"

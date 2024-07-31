@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://mb70d73s44lp"]
+
+[ext_resource type="Texture2D" uid="uid://c2wld284k1vsv" path="res://sprites/ABPointAdd_Upgrade.png" id="1_al2r0"]
+[ext_resource type="PackedScene" uid="uid://bgjpouh1715h7" path="res://other control nodes/Buy_btn.tscn" id="2_3db25"]
+
+[node name="ABPoint_Add" type="VBoxContainer"]
+
+[node name="Sprite" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_al2r0")
+stretch_mode = 2
+
+[node name="Upgrade_Name" type="Label" parent="."]
+layout_mode = 2
+text = "Add Points"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="."]
+layout_mode = 2
+text = "Cost:"
+horizontal_alignment = 1
+
+[node name="BuyBtn" parent="." instance=ExtResource("2_3db25")]
+layout_mode = 2
+max_stack = 5
+number_to_add = 1.0
+cost = 2000
+property = "ABmax_points"
