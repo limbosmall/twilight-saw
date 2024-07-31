@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cks5rxqny3qrb"]
+[gd_scene load_steps=4 format=3 uid="uid://cks5rxqny3qrb"]
 
 [ext_resource type="Script" path="res://working area/StartingScreen.gd" id="1_imt8d"]
 [ext_resource type="PackedScene" uid="uid://cff0c52jaojuw" path="res://other control nodes/goto_btn.tscn" id="2_r7tng"]
+[ext_resource type="Texture2D" uid="uid://b6w738vfe6w1w" path="res://sprites/aa.jpeg" id="2_w1qyl"]
 
 [node name="StartingScreen" type="Control"]
 layout_mode = 3
@@ -12,14 +13,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_imt8d")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.309804, 0.027451, 0.792157, 1)
+texture = ExtResource("2_w1qyl")
+expand_mode = 1
+stretch_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

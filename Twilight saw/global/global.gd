@@ -14,6 +14,7 @@ var ABphline_radius = 200 #        Используется в mouse_checker.gd
 var ABmax_points = 2 # -----------/
 var DrawSaw_max_pixels = 500 #---/
 var BigSaw_dmg = 10 #Используется в Saw.gd, PauseMenu.gd и twilight_saw.gd
+var twilight_saw_damage_unlocked = false
 var BigSaw_timer_unlocked = false:
 	set(value):
 		BigSaw_timer_unlocked = value

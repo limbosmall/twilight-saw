@@ -8,12 +8,8 @@
 [node name="Twilight saw" type="Node2D"]
 script = ExtResource("1_tmfvh")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -108.0
-offset_top = -132.0
-offset_right = 1284.0
-offset_bottom = 790.0
-color = Color(0.309804, 0.027451, 0.792157, 1)
+[node name="PauseMenu" parent="." instance=ExtResource("4_na4o2")]
+z_index = 2
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.5
@@ -26,7 +22,7 @@ layer_0/tile_data = PackedInt32Array(-65527, 0, 65536, 9, 0, 65536, 65545, 0, 65
 layer_1/tile_data = PackedInt32Array(458759, 1, 0, -131063, 0, 131072, -131062, 0, 131072, -131061, 0, 131072, -131060, 0, 131072, -131059, 0, 131072, 786443, 0, 196608)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(577, 322)
+position = Vector2(576, 324)
 
 [node name="Label" type="Label" parent="."]
 offset_right = 375.0
@@ -34,19 +30,16 @@ offset_bottom = 42.0
 theme_override_font_sizes/font_size = 30
 text = "Score: 0"
 
-[node name="PauseMenu" parent="." instance=ExtResource("4_na4o2")]
-z_index = 2
-
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="TileMap/Area2D" to="TileMap/Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="TileMap/Area2D" to="TileMap/Area2D" method="_on_body_exited"]
 [connection signal="body_entered" from="TileMap/Spawn_checker" to="TileMap/Spawn_checker" method="_on_body_entered"]
 [connection signal="body_exited" from="TileMap/Spawn_checker" to="TileMap/Spawn_checker" method="_on_body_exited"]
-[connection signal="body_entered" from="TileMap/@Area2D@146167" to="TileMap/@Area2D@146167" method="_on_body_entered"]
-[connection signal="body_exited" from="TileMap/@Area2D@146167" to="TileMap/@Area2D@146167" method="_on_body_exited"]
-[connection signal="body_entered" from="TileMap/@Area2D@146168" to="TileMap/@Area2D@146168" method="_on_body_entered"]
-[connection signal="body_exited" from="TileMap/@Area2D@146168" to="TileMap/@Area2D@146168" method="_on_body_exited"]
-[connection signal="body_entered" from="TileMap/@Area2D@146169" to="TileMap/@Area2D@146169" method="_on_body_entered"]
-[connection signal="body_exited" from="TileMap/@Area2D@146169" to="TileMap/@Area2D@146169" method="_on_body_exited"]
-[connection signal="body_entered" from="TileMap/@Area2D@146170" to="TileMap/@Area2D@146170" method="_on_body_entered"]
-[connection signal="body_exited" from="TileMap/@Area2D@146170" to="TileMap/@Area2D@146170" method="_on_body_exited"]
+[connection signal="body_entered" from="TileMap/@Area2D@102313" to="TileMap/@Area2D@102313" method="_on_body_entered"]
+[connection signal="body_exited" from="TileMap/@Area2D@102313" to="TileMap/@Area2D@102313" method="_on_body_exited"]
+[connection signal="body_entered" from="TileMap/@Area2D@102314" to="TileMap/@Area2D@102314" method="_on_body_entered"]
+[connection signal="body_exited" from="TileMap/@Area2D@102314" to="TileMap/@Area2D@102314" method="_on_body_exited"]
+[connection signal="body_entered" from="TileMap/@Area2D@102315" to="TileMap/@Area2D@102315" method="_on_body_entered"]
+[connection signal="body_exited" from="TileMap/@Area2D@102315" to="TileMap/@Area2D@102315" method="_on_body_exited"]
+[connection signal="body_entered" from="TileMap/@Area2D@102316" to="TileMap/@Area2D@102316" method="_on_body_entered"]
+[connection signal="body_exited" from="TileMap/@Area2D@102316" to="TileMap/@Area2D@102316" method="_on_body_exited"]

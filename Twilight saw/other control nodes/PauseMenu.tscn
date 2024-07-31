@@ -1,18 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://bsmtowonlfpa7"]
+[gd_scene load_steps=15 format=3 uid="uid://bsmtowonlfpa7"]
 
 [ext_resource type="Script" path="res://other control nodes/PauseMenu.gd" id="1_i552n"]
 [ext_resource type="Texture2D" uid="uid://oud0ccx83g5s" path="res://sprites/PauseIdle.png" id="1_yr612"]
+[ext_resource type="PackedScene" uid="uid://5vs0xsq5x3up" path="res://other control nodes/main_paralax_backgroung.tscn" id="2_ilcix"]
 [ext_resource type="Texture2D" uid="uid://xw4j43dxtglm" path="res://sprites/PausePressed.png" id="2_rwylo"]
 [ext_resource type="Texture2D" uid="uid://tlhv1tsc84w4" path="res://sprites/PauseHover.png" id="3_bnxes"]
+[ext_resource type="PackedScene" uid="uid://3ibrqfpxcsby" path="res://other control nodes/line_marg.tscn" id="6_6s8ji"]
 [ext_resource type="Texture2D" uid="uid://crhc08bebofcd" path="res://sprites/ABPoint_Upgrade.png" id="6_8si8c"]
 [ext_resource type="Texture2D" uid="uid://bbyilofsalfo" path="res://sprites/Draw_Saw_Upgrade.png" id="7_1is6b"]
 [ext_resource type="PackedScene" uid="uid://bgjpouh1715h7" path="res://other control nodes/Buy_btn.tscn" id="7_6m5q8"]
-[ext_resource type="Texture2D" uid="uid://c2wld284k1vsv" path="res://sprites/ABPointAdd_Upgrade.png" id="8_fkww1"]
-[ext_resource type="Texture2D" uid="uid://bjtvb3dnekod" path="res://sprites/ABRadius_Upgrade.png" id="9_42x0a"]
-[ext_resource type="Texture2D" uid="uid://dewwibwhvuuc7" path="res://sprites/DrawPixels_Upgrade.png" id="11_p3bel"]
 [ext_resource type="Texture2D" uid="uid://gwwcw2klbpm1" path="res://sprites/Починка.png" id="12_4pcf2"]
 [ext_resource type="Texture2D" uid="uid://4yv2qpd8u82x" path="res://sprites/BigSaw_AddTimer_Upgrade.png" id="12_ryc8r"]
-[ext_resource type="Texture2D" uid="uid://dvdgyso4r6n86" path="res://sprites/BigSaw_Timer_Upgrade.png" id="13_roki4"]
 
 [sub_resource type="Animation" id="Animation_t4ce5"]
 length = 0.001
@@ -60,6 +58,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_i552n")
+
+[node name="MainParalaxBackgroung" parent="." instance=ExtResource("2_ilcix")]
+z_index = -2
+layout_mode = 0
+offset_right = 1154.0
+offset_bottom = 648.0
 
 [node name="TextureButton" type="TextureButton" parent="."]
 process_mode = 1
@@ -116,298 +120,123 @@ offset_bottom = -4.0
 
 [node name="Scroller" type="ScrollContainer" parent="Shop"]
 layout_mode = 2
-scroll_vertical = 202
 horizontal_scroll_mode = 0
 
 [node name="VScroller" type="VBoxContainer" parent="Shop/Scroller"]
 layout_mode = 2
 
-[node name="FirstMarg" type="MarginContainer" parent="Shop/Scroller/VScroller"]
-layout_mode = 2
-theme_override_constants/margin_left = 64
-theme_override_constants/margin_top = 64
-theme_override_constants/margin_right = 64
-
-[node name="FirstLine" type="HBoxContainer" parent="Shop/Scroller/VScroller/FirstMarg"]
-layout_mode = 2
-size_flags_stretch_ratio = 0.0
-
-[node name="AB_Saw" type="VBoxContainer" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine"]
+[node name="LineMarg" parent="Shop/Scroller/VScroller" instance=ExtResource("6_6s8ji")]
 layout_mode = 2
 
-[node name="Sprite" type="TextureRect" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine/AB_Saw"]
+[node name="AB_Saw" type="VBoxContainer" parent="Shop/Scroller/VScroller/LineMarg/LineBox" index="0"]
+layout_mode = 2
+
+[node name="Sprite" type="TextureRect" parent="Shop/Scroller/VScroller/LineMarg/LineBox/AB_Saw"]
 layout_mode = 2
 texture = ExtResource("6_8si8c")
 stretch_mode = 2
 
-[node name="Upgrade_Name" type="Label" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine/AB_Saw"]
+[node name="Upgrade_Name" type="Label" parent="Shop/Scroller/VScroller/LineMarg/LineBox/AB_Saw"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "Point-Moving Saw"
 
-[node name="Cost" type="Label" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine/AB_Saw"]
+[node name="Cost" type="Label" parent="Shop/Scroller/VScroller/LineMarg/LineBox/AB_Saw"]
 layout_mode = 2
 text = "Cost:"
 horizontal_alignment = 1
 
-[node name="BuyBtn" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine/AB_Saw" instance=ExtResource("7_6m5q8")]
+[node name="BuyBtn" parent="Shop/Scroller/VScroller/LineMarg/LineBox/AB_Saw" instance=ExtResource("7_6m5q8")]
 layout_mode = 2
 max_stack = 1
 cost = 5000
 booler = true
 property = "ABsaw_unlocked"
+unlock_upgrades = ["res://other control nodes/ab_point_add.tscn", "res://other control nodes/ab_radius_increase.tscn", "res://other control nodes/twilight_saw_damage_up.tscn"]
 
-[node name="Gap" type="Control" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine"]
-custom_minimum_size = Vector2(123.9, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 5.62
-
-[node name="ABPoint_Add" type="VBoxContainer" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine"]
+[node name="Draw_Saw" type="VBoxContainer" parent="Shop/Scroller/VScroller/LineMarg/LineBox" index="2"]
 layout_mode = 2
 
-[node name="Sprite" type="TextureRect" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine/ABPoint_Add"]
-layout_mode = 2
-texture = ExtResource("8_fkww1")
-stretch_mode = 2
-
-[node name="Upgrade_Name" type="Label" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine/ABPoint_Add"]
-layout_mode = 2
-text = "Add Points"
-horizontal_alignment = 1
-
-[node name="Cost" type="Label" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine/ABPoint_Add"]
-layout_mode = 2
-text = "Cost:"
-horizontal_alignment = 1
-
-[node name="BuyBtn" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine/ABPoint_Add" instance=ExtResource("7_6m5q8")]
-layout_mode = 2
-max_stack = 5
-number_to_add = 1.0
-cost = 2000
-property = "ABmax_points"
-
-[node name="Gap2" type="Control" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine"]
-custom_minimum_size = Vector2(123.9, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ABRadius_Increase" type="VBoxContainer" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine"]
-layout_mode = 2
-
-[node name="TextureRect2" type="TextureRect" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine/ABRadius_Increase"]
-layout_mode = 2
-texture = ExtResource("9_42x0a")
-stretch_mode = 2
-
-[node name="Upgrade_Name" type="Label" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine/ABRadius_Increase"]
-layout_mode = 2
-text = "Increase Radius"
-horizontal_alignment = 1
-
-[node name="Cost" type="Label" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine/ABRadius_Increase"]
-layout_mode = 2
-text = "Cost:"
-horizontal_alignment = 1
-
-[node name="BuyBtn" parent="Shop/Scroller/VScroller/FirstMarg/FirstLine/ABRadius_Increase" instance=ExtResource("7_6m5q8")]
-layout_mode = 2
-max_stack = 4
-number_to_add = 20.0
-cost = 2500
-property = "ABphline_radius"
-
-[node name="SecondMarg" type="MarginContainer" parent="Shop/Scroller/VScroller"]
-layout_mode = 2
-theme_override_constants/margin_left = 64
-theme_override_constants/margin_top = 64
-theme_override_constants/margin_right = 64
-
-[node name="SecondLine" type="HBoxContainer" parent="Shop/Scroller/VScroller/SecondMarg"]
-layout_mode = 2
-
-[node name="Draw_Saw" type="VBoxContainer" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine"]
-layout_mode = 2
-
-[node name="Sprite" type="TextureRect" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine/Draw_Saw"]
+[node name="Sprite" type="TextureRect" parent="Shop/Scroller/VScroller/LineMarg/LineBox/Draw_Saw"]
 layout_mode = 2
 texture = ExtResource("7_1is6b")
 stretch_mode = 2
 
-[node name="Upgrade_Name" type="Label" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine/Draw_Saw"]
+[node name="Upgrade_Name" type="Label" parent="Shop/Scroller/VScroller/LineMarg/LineBox/Draw_Saw"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Draw-Moving Saw"
 
-[node name="Cost" type="Label" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine/Draw_Saw"]
+[node name="Cost" type="Label" parent="Shop/Scroller/VScroller/LineMarg/LineBox/Draw_Saw"]
 layout_mode = 2
 text = "Cost:"
 horizontal_alignment = 1
 
-[node name="BuyBtn" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine/Draw_Saw" instance=ExtResource("7_6m5q8")]
+[node name="BuyBtn" parent="Shop/Scroller/VScroller/LineMarg/LineBox/Draw_Saw" instance=ExtResource("7_6m5q8")]
 layout_mode = 2
 max_stack = 1
 cost = 70000
 booler = true
 property = "DrawSaw_unlocked"
+unlock_upgrades = ["res://other control nodes/draw_pixels.tscn", "res://other control nodes/twilight_saw_damage_up.tscn"]
 
-[node name="Gap" type="Control" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine"]
-custom_minimum_size = Vector2(123.9, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 5.62
-
-[node name="Draw_Pixels" type="VBoxContainer" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine"]
+[node name="BigSaw_AddTimer" type="VBoxContainer" parent="Shop/Scroller/VScroller/LineMarg/LineBox" index="4"]
 layout_mode = 2
 
-[node name="Sprite" type="TextureRect" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine/Draw_Pixels"]
-layout_mode = 2
-texture = ExtResource("11_p3bel")
-stretch_mode = 2
-
-[node name="Upgrade_Name" type="Label" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine/Draw_Pixels"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "Draw length"
-horizontal_alignment = 1
-
-[node name="Cost" type="Label" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine/Draw_Pixels"]
-layout_mode = 2
-text = "Cost:"
-horizontal_alignment = 1
-
-[node name="BuyBtn" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine/Draw_Pixels" instance=ExtResource("7_6m5q8")]
-layout_mode = 2
-max_stack = 5
-number_to_add = 100.0
-cost = 6000
-property = "DrawSaw_max_pixels"
-
-[node name="Gap2" type="Control" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine"]
-custom_minimum_size = Vector2(123.9, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 5.62
-
-[node name="Repair_Saw" type="VBoxContainer" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine"]
-layout_mode = 2
-
-[node name="Sprite" type="TextureRect" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine/Repair_Saw"]
-layout_mode = 2
-texture = ExtResource("12_4pcf2")
-stretch_mode = 2
-
-[node name="Upgrade_Name" type="Label" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine/Repair_Saw"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "Repair Saw"
-horizontal_alignment = 1
-
-[node name="Cost" type="Label" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine/Repair_Saw"]
-layout_mode = 2
-text = "Cost:"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="Shop/Scroller/VScroller/SecondMarg/SecondLine/Repair_Saw"]
-layout_mode = 2
-disabled = true
-text = "Repair"
-
-[node name="ThirdMarg" type="MarginContainer" parent="Shop/Scroller/VScroller"]
-layout_mode = 2
-theme_override_constants/margin_left = 64
-theme_override_constants/margin_top = 64
-theme_override_constants/margin_right = 64
-
-[node name="ThirdLine" type="HBoxContainer" parent="Shop/Scroller/VScroller/ThirdMarg"]
-layout_mode = 2
-size_flags_stretch_ratio = 0.0
-
-[node name="BigSaw_AddTimer" type="VBoxContainer" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine"]
-layout_mode = 2
-
-[node name="Sprite" type="TextureRect" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/BigSaw_AddTimer"]
+[node name="Sprite" type="TextureRect" parent="Shop/Scroller/VScroller/LineMarg/LineBox/BigSaw_AddTimer"]
 layout_mode = 2
 texture = ExtResource("12_ryc8r")
 stretch_mode = 2
 
-[node name="Upgrade_Name" type="Label" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/BigSaw_AddTimer"]
+[node name="Upgrade_Name" type="Label" parent="Shop/Scroller/VScroller/LineMarg/LineBox/BigSaw_AddTimer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Saw automatzation"
 horizontal_alignment = 1
 
-[node name="Cost" type="Label" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/BigSaw_AddTimer"]
+[node name="Cost" type="Label" parent="Shop/Scroller/VScroller/LineMarg/LineBox/BigSaw_AddTimer"]
 layout_mode = 2
 text = "Cost:"
 horizontal_alignment = 1
 
-[node name="BuyBtn" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/BigSaw_AddTimer" instance=ExtResource("7_6m5q8")]
+[node name="BuyBtn" parent="Shop/Scroller/VScroller/LineMarg/LineBox/BigSaw_AddTimer" instance=ExtResource("7_6m5q8")]
 layout_mode = 2
 max_stack = 1
 cost = 2000
 booler = true
 property = "BigSaw_timer_unlocked"
+unlock_upgrades = ["res://other control nodes/big_saw_increase_timer.tscn", "res://other control nodes/big_saw_damage_up.tscn"]
 
-[node name="Gap" type="Control" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine"]
-custom_minimum_size = Vector2(123.9, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 5.62
-
-[node name="BigSaw_IncreaseTimer" type="VBoxContainer" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine"]
+[node name="LineMarg2" parent="Shop/Scroller/VScroller" instance=ExtResource("6_6s8ji")]
 layout_mode = 2
 
-[node name="Sprite" type="TextureRect" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/BigSaw_IncreaseTimer"]
+[node name="Repair_Saw" type="VBoxContainer" parent="Shop/Scroller/VScroller/LineMarg2/LineBox" index="0"]
 layout_mode = 2
-texture = ExtResource("13_roki4")
+
+[node name="Sprite" type="TextureRect" parent="Shop/Scroller/VScroller/LineMarg2/LineBox/Repair_Saw"]
+layout_mode = 2
+texture = ExtResource("12_4pcf2")
 stretch_mode = 2
 
-[node name="Upgrade_Name" type="Label" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/BigSaw_IncreaseTimer"]
+[node name="Upgrade_Name" type="Label" parent="Shop/Scroller/VScroller/LineMarg2/LineBox/Repair_Saw"]
 layout_mode = 2
-text = "Upgrade timer"
+theme_override_font_sizes/font_size = 14
+text = "Repair Saw"
 horizontal_alignment = 1
 
-[node name="Cost" type="Label" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/BigSaw_IncreaseTimer"]
+[node name="Cost" type="Label" parent="Shop/Scroller/VScroller/LineMarg2/LineBox/Repair_Saw"]
 layout_mode = 2
 text = "Cost:"
 horizontal_alignment = 1
 
-[node name="BuyBtn" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/BigSaw_IncreaseTimer" instance=ExtResource("7_6m5q8")]
-layout_mode = 2
-max_stack = 4
-number_to_add = -0.501
-cost = 7500
-property = "BigSaw_timer_speed"
-
-[node name="Gap2" type="Control" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine"]
-custom_minimum_size = Vector2(123.9, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ABRadius_Increase" type="VBoxContainer" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine"]
-layout_mode = 2
-
-[node name="TextureRect2" type="TextureRect" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/ABRadius_Increase"]
-layout_mode = 2
-texture = ExtResource("9_42x0a")
-stretch_mode = 2
-
-[node name="Upgrade_Name" type="Label" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/ABRadius_Increase"]
-layout_mode = 2
-text = "Nul"
-horizontal_alignment = 1
-
-[node name="Cost" type="Label" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/ABRadius_Increase"]
-layout_mode = 2
-text = "Cost:"
-horizontal_alignment = 1
-
-[node name="BuyBtn" parent="Shop/Scroller/VScroller/ThirdMarg/ThirdLine/ABRadius_Increase" instance=ExtResource("7_6m5q8")]
+[node name="Button" type="Button" parent="Shop/Scroller/VScroller/LineMarg2/LineBox/Repair_Saw"]
 layout_mode = 2
 disabled = true
+text = "Repair"
 
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Save_and_quit" to="." method="_on_save_and_quit_pressed"]
+
+[editable path="Shop/Scroller/VScroller/LineMarg"]
+[editable path="Shop/Scroller/VScroller/LineMarg2"]

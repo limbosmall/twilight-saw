@@ -45,7 +45,7 @@ func save_data():
 	file = null
 
 func _on_texture_button_pressed():
-	if not paused:
+	if not paused and not gb.shopping:
 		paused = true
 		$AnimationPlayer.play("blur")
 		get_tree().paused = true
