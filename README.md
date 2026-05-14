@@ -7,9 +7,9 @@
   
 ![Menu](docs/screenshots/scr1.png)  
   
-![Gameplay](docs/screenshots/scr1.png)    
+![Gameplay](docs/screenshots/scr2.png)    
   
-![Upgrade Shop](docs/screenshots/scr1.png)    
+![Upgrade Shop](docs/screenshots/scr3.png)    
   
 ## Идея Геймплея  
   
